@@ -13,7 +13,7 @@ body {
   background-color: #f4f4f4;
   /* Optional: Tell the items how to behave */
   justify-content: space-between; /* Spreads items out across the main axis */
-  align-items: center;            /* Centers items vertically */
+ 
   gap: 20px;                      /* Adds space between the items */
 }
 
