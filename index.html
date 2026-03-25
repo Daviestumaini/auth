@@ -5,117 +5,171 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Account Registration</title>
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f7f6;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            flex-direction: column; /* Allows space for nav if needed */
-        }
-        
-        /* Navigation Bar Styles */
-        .top-nav {
-            margin-bottom: 20px;
-        }
-        .top-nav a {
-            text-decoration: none;
-            color: #555;
-            font-weight: 500;
-            margin: 0 15px;
-            transition: color 0.3s;
-        }
-        .top-nav a:hover {
-            color: #007bff;
-        }
+    /* 1. Reset & Layout Engine */
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
 
-        .registration-container {
-            background: white;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            width: 90%;
-            max-width: 350px;
-        }
-        h2 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 1.5rem;
-        }
-        .form-group {
-            margin-bottom: 1rem;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: #555;
-        }
-        input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        button {
-            width: 100%;
-            padding: 10px;
-            background-color: #28a745;
-            border: none;
-            border-radius: 4px;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-        button:hover {
-            background-color: #218838;
-        }
-        .footer-links {
-            text-align: center;
-            margin-top: 1.5rem;
-            font-size: 0.9rem;
-            color: #666;
-        }
-        .footer-links a {
-            color: #007bff;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        .footer-links a:hover {
-            text-decoration: underline;
-        }
-        .divider {
-            margin: 0 8px;
-            color: #ccc;
-        }
-    </style>
+    body {
+        font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        background-color: #f4f7f6;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        overflow: hidden; 
+    }
+
+    /* 2. Navbar Styling */
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #1a1a1a;
+        color: white;
+        padding: 0 25px;
+        height: 70px;
+        flex-shrink: 0;
+    }
+
+    /* 3. The Centerer (The "Stacker") */
+    .main-wrapper {
+        display: flex;
+        flex-direction: column; /* Forces the items to stay ABOVE the form */
+        justify-content: center; 
+        align-items: center;     
+        flex-grow: 1;            
+        gap: 20px;               
+        padding: 20px;
+    }
+
+    /* 4. The Blue Items (1, 2, 3, 4) */
+    .flex-container {
+        display: flex;
+        gap: 12px;
+    }
+
+    .flex-container div {
+        width: 38px;
+        height: 38px;
+        background-color: #2575fc;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+        border-radius: 6px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    /* 5. The Registration Card - UPDATED CLASS NAME */
+    .registration-container {
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        width: 100%;
+        max-width: 420px;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #333;
+        font-size: 1.4rem;
+    }
+
+    .form-group {
+        margin-bottom: 12px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: 600;
+        color: #555;
+        font-size: 13px;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 14px;
+        outline: none;
+    }
+
+    input:focus {
+        border-color: #2575fc;
+    }
+
+    /* 6. Action Button */
+    button {
+        width: 100%;
+        padding: 12px;
+        background-color: #28a745; 
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-weight: bold;
+        font-size: 15px;
+        cursor: pointer;
+        margin-top: 10px;
+        transition: background 0.3s;
+    }
+
+    button:hover {
+        background-color: #218838;
+    }
+
+    .footer-links {
+        text-align: center;
+        margin-top: 15px;
+        font-size: 13px;
+        color: #666;
+    }
+
+    .footer-links a {
+        color: #2575fc;
+        text-decoration: none;
+        font-weight: 600;
+    }
+</style>
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+    <nav class="navbar">
+        <div class="logo-container">
+    <img src="logo/gloryday.jpg" alt="App Logo" class="nav-logo">
+    <span class="brand-name">Davies' app</span>
+  </div>
+        <div class="flex-container">
+  <div class="nav-group">
+    <ul class="nav-links">
+      <li><a href="login.html">Login</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+    </ul>
+  </div>
 
-    <div class="container">
+  <div class="search-wrapper">
+    <input type="text" placeholder="Search..." aria-label="Search">
+    <button class="search-btn">🔍</button>
+  </div>
+</nav>
+
+    <div class="flex-container">
   <div class="item">1</div>
   <div class="item">2</div>
   <div class="item">3</div>
   <div class="item">4</div>
 </div>
-
-    <nav class="top-nav">
-        
-        <a href="dashboard.html">Dashboard</a>
-        
-    </nav>
-
-    <div class="registration-container">
+<div class="main-wrapper">
+    <div class="registration-container"></div>
         <h2>Create Account</h2>
         <form action="/register" method="POST">
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" placeholder="username" required>
-            </div>
+            
             <div class="form-group">
                 <label for="firstname">First Name</label>
                 <input type="text" id="firstname" placeholder="Eg. Davies" required>
@@ -132,10 +186,7 @@
                 <label for="password">Password</label>
                 <input type="password" id="password" placeholder="*************" required>
             </div>
-            <div class="form-group">
-                <label for="confirmpassword">Confirm password</label>
-                <input type="password" id="confirmpassword" placeholder="*************" required>
-            </div>
+        
             <button type="submit">Sign Up</button>
         </form>
 
@@ -145,6 +196,5 @@
             <a href="dashboard.html">View Dashboard</a>
         </div>
     </div>
-
 </body>
 </html>
