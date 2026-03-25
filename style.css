@@ -152,6 +152,45 @@ body {
     outline: none;
     width: 120px;
 }
+/* 1. The Wrapper - Adds spacing so the button isn't touching the edge */
+.search-wrapper {
+    display: flex;
+    align-items: center;
+    background: #333;
+    border: 1px solid #4a90e2;
+    border-radius: 20px;
+    
+    /* FIX: Added padding on the left (5px) and right (12px) 
+       to center the input and give the button breathing room. */
+    padding: 5px 12px 5px 5px; 
+    
+    min-width: 200px;
+}
+
+.search-wrapper input {
+    background: transparent;
+    border: none;
+    color: white;
+    outline: none;
+    width: 100%;
+    padding-right: 5px; /* Adds gap between text and button */
+}
+
+/* 2. The Button - Shrinks it and centers it */
+.search-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    
+    /* FIX: Reducing font-size slightly and setting a line-height 
+       ensures the emoji fits perfectly in the vertical center. */
+    font-size: 14px; 
+    height: 18px;    
+    line-height: 18px;
+    
+    /* Optional: Slight color shift if you want it more subtle */
+    color: rgba(255, 255, 255, 0.7); 
+}
 
 /* 5. The Centerer (The "Spring") */
 .main-wrapper {

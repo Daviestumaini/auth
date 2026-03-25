@@ -6,53 +6,99 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Welcome Back</title>
    <style>
-    /* 1. Reset everything so there are no hidden gaps */
+    /* 1. Base Setup */
     * {
         box-sizing: border-box;
         margin: 0;
         padding: 0;
     }
 
-    /* 2. Make the body the full height of your screen */
     body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-family: 'Segoe UI', Arial, sans-serif;
         background-color: #f4f7f6;
         display: flex;
         flex-direction: column;
         height: 100vh;
-        overflow-x: hidden;
+        overflow: hidden;
     }
 
-    /* 3. The Navbar (Stays at the very top) */
+    /* 2. Navbar Styling (3-Zone Layout) */
     .navbar {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background-color: #1a1a1a;
-        color: white;
-        padding: 0 20px;
+        background-color: #ffffff;
+        border-bottom: 1px solid #ddd;
+        padding: 0 30px;
         height: 70px;
         flex-shrink: 0;
     }
 
-    /* 4. The MAIN WRAPPER (The Fix) */
+    .nav-left, .nav-center, .nav-right {
+        flex: 1;
+        display: flex;
+        align-items: center;
+    }
+
+    .nav-center { justify-content: center; }
+    .nav-right { justify-content: flex-end; }
+
+    .nav-logo {
+        height: 45px;
+        margin-right: 10px;
+        border-radius: 4px;
+    }
+
+    .nav-links {
+        display: flex;
+        list-style: none;
+        gap: 25px;
+    }
+
+    .nav-links a {
+        text-decoration: none;
+        color: #444;
+        font-weight: 500;
+        font-size: 15px;
+    }
+
+    /* Search Box (Dark & Rounded) */
+    .search-box {
+        display: flex;
+        align-items: center;
+        background: #333;
+        border-radius: 25px;
+        padding: 6px 15px;
+        width: 220px;
+    }
+
+    .search-box input {
+        background: transparent;
+        border: none;
+        color: white;
+        outline: none;
+        width: 100%;
+        font-size: 14px;
+    }
+
+    /* 3. The Vertical Stacker */
     .main-wrapper {
         display: flex;
-        flex-direction: column; /* Forces items to stack TOP to BOTTOM */
-        justify-content: center; /* Centers the whole stack vertically */
-        align-items: center;     /* Centers everything horizontally */
-        flex-grow: 1;            /* Fills all space between nav and bottom */
-        gap: 30px;               /* The gap between the blue boxes and the form */
+        flex-direction: column; /* Forces vertical stacking */
+        justify-content: center;
+        align-items: center;
+        flex-grow: 1;
+        gap: 25px; /* Gap between items and the login box */
         padding: 20px;
     }
 
-    /* 5. The Blue Items Container */
+    /* 4. Blue Items (1, 2, 3, 4) */
     .flex-container {
         display: flex;
-        gap: 15px;
+        gap: 12px;
     }
 
-    .flex-container div {
+    .item {
         width: 40px;
         height: 40px;
         background-color: #2575fc;
@@ -61,39 +107,78 @@
         justify-content: center;
         align-items: center;
         font-weight: bold;
-        border-radius: 4px;
+        border-radius: 6px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     }
 
-    /* 6. The Login Container */
+    /* 5. Login Box */
     .login-container {
         background: white;
-        padding: 30px;
+        padding: 40px;
         border-radius: 12px;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
         width: 100%;
         max-width: 400px;
     }
 
-    /* Form styling for a clean look */
-    .form-group { margin-bottom: 15px; }
-    label { display: block; margin-bottom: 5px; font-weight: 600; color: #333; }
-    input { 
-        width: 100%; 
-        padding: 10px; 
-        border: 1px solid #ddd; 
-        border-radius: 5px; 
+    h2 {
+        font-size: 1.8rem;
+        margin-bottom: 25px;
+        color: #222;
     }
-    button {
+
+    .form-group {
+        margin-bottom: 20px;
+        text-align: left;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+        color: #444;
+        font-size: 14px;
+    }
+
+    input[type="email"], 
+    input[type="password"] {
         width: 100%;
         padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 14px;
+    }
+
+    /* Button Styling */
+    button[type="submit"] {
+        width: 100%;
+        padding: 14px;
         background-color: #007bff;
         color: white;
         border: none;
-        border-radius: 5px;
-        cursor: pointer;
+        border-radius: 6px;
         font-weight: bold;
+        font-size: 16px;
+        cursor: pointer;
+        margin-top: 10px;
     }
-    button:hover { background-color: #0056b3; }
+
+    button[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+
+    .footer-links {
+        margin-top: 25px;
+        text-align: center;
+        font-size: 14px;
+        color: #666;
+    }
+
+    .footer-links a {
+        color: #007bff;
+        text-decoration: none;
+        font-weight: 600;
+    }
 </style>
 </head>
 <body>
