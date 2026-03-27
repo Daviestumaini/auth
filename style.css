@@ -18,45 +18,175 @@ body {
   margin: 0;
   font-family: sans-serif;
 }
+/* Container for the 3D Mark */
+.logo-pedestal {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle, rgba(51, 154, 240, 0.15) 0%, transparent 80%);
+    border-radius: 12px;
+}
+
+/* ==========================================
+   HIGH-VISIBILITY LOGO STYLING (DARK THEME)
+   ========================================== */
+
+/* The image itself needs filters for visibility */
+.nav-logo {
+    height: 32px;
+    width: auto;
+    
+    /* 1. Invert: This turns the dark parts of the icon bright white/light blue.
+       This is the key step for dark themes. */
+    filter: invert(1);
+    
+    /* 2. Glow: We then add a neon blue glow back in using the color you defined.
+       This gives it that attractive, modern look. */
+    filter: drop-shadow(0 0 10px rgba(51, 154, 240, 1));
+    
+    /* 3. Smooth Transition: This makes any hover effects (like spinning) smooth. */
+    transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+/* Optional Interaction: Make it brighter on hover */
+.logo-container:hover .nav-logo {
+    filter: invert(1) drop-shadow(0 0 15px rgba(51, 154, 240, 1)) brightness(1.2);
+    transform: scale(1.1);
+}
+.brand-text {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+    line-height: 1.1;
+}
+
+.brand-main {
+    color: var(--neon-blue);
+    font-size: 1.4rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.brand-sub {
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 300;
+    opacity: 0.7;
+}
 /* The Top Navbar */
 .navbar {
-  height: 60px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  background: #fff;
-  border-bottom: 1px solid #ddd;
-  flex-shrink: 0; /* Keeps the nav from squishing */
-  list-style-type: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background: #161b22;
+    border-bottom: 2px solid #ff5f5f;
+    min-height: 60px; /* Gives the navbar enough room */
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Spaces out the logo, name, and button */
 }
 .nav-logo {
+    display: flex !important;
   height: 40px;    /* Adjust this to make the logo larger or smaller */
   width: auto;      /* Keeps the image from stretching */
   margin-right: 10px; /* Adds a little gap between the pic and the text */
   display: block;   /* Helps with vertical alignment */
 }
+/* Container to center the links in the navbar */
+.nav-group {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center;
+    flex: 1; /* This pushes the links to the middle */
+}
 
-.logo-container {
-  display: flex;
-  align-items: center; /* Ensures the logo and text are level with each other */
-}
+/* The List itself */
 .nav-links {
-  display: flex !important;       /* Horizontal */
-  list-style: none !important;    /* No dots */
-  gap: 25px;           /* Space between them */
-  padding: 0;
-  margin: 0;
-  justify-content: center;
-  align-items: center;
+    display: flex !important;      /* FORCES horizontal row */
+    flex-direction: row !important; /* Double-check it's a row */
+    list-style-type: none !important;
+     justify-content: center !important; /* Centers the links in the navbar */
+    margin: 0;
+    padding: 0;
+    gap: 20px; /* Space between Register and Login */
 }
+
+/* The List Items */
 .nav-links li {
-    display: inline;     /* Extra insurance for horizontal layout */
+    display: inline-block; /* Backup for older browsers */
 }
+
+/* The actual clickable text */
 .nav-links a {
+    justify-content: center;
+    list-style-type: none;
+    color: var(--text-main);
     text-decoration: none;
-    color: #555;
+    font-size: 0.9rem;
     font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    color: var(--neon-blue);
+    text-shadow: 0 0 8px var(--neon-blue);
+}
+/* 1. MOBILE FIRST (Default Styles) */
+/* These styles apply to phones (0px to 480px) */
+.main-body {
+    display: flex;
+    flex-direction: column; /* Stack everything vertically */
+    padding: 10px;
+}
+
+.sidebar {
+    display: none; /* Hide the sidebar on mobile, use a hamburger menu instead */
+}
+
+.stats-grid {
+    grid-template-columns: 1fr; /* One card per row */
+}
+
+/* 2. TABLET VIEW */
+/* These styles apply when the screen is 481px or wider */
+@media screen and (min-width: 481px) {
+    .main-body {
+        flex-direction: row; /* Sidebar and Content sit side-by-side */
+    }
+    
+    .sidebar {
+        display: block; /* Show the sidebar */
+        width: 200px;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr); /* Two cards per row */
+    }
+}
+
+/* 3. LAPTOP/DESKTOP VIEW */
+/* These styles apply when the screen is 1025px or wider */
+@media screen and (min-width: 1025px) {
+    .sidebar {
+        width: 260px; /* Wider sidebar for big screens */
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(4, 1fr); /* All four cards in one row */
+    }
+
+    .main-content {
+        padding: 40px; /* More breathing room on large screens */
+    }
 }
 /* Tablet Layout Logic */
 @media (min-width: 768px) {
