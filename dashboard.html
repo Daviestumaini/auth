@@ -6,94 +6,106 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Dashboard</title>
     <style>
+      :root {
+            --bg-dark: #0d1117;
+            --card-bg: #161b22;
+            --neon-red: #ff5f5f;
+            --neon-green: #51cf66;
+            --neon-blue: #339af0;
+            --text-main: #e6edf3;
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Segoe UI', sans-serif;
             margin: 0;
             display: flex;
-            background-color: #f0f2f5;
+            flex-direction: column;
             height: 100vh;
         }
 
-        /* Sidebar Styling */
-        .sidebar {
-            width: 240px;
-            background-color: #343a40;
-            color: white;
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-        }
-        .sidebar h2 {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            text-align: center;
-            border-bottom: 1px solid #495057;
-            padding-bottom: 10px;
-        }
-        .sidebar a {
-            color: #adb5bd;
-            text-decoration: none;
-            padding: 12px;
-            margin-bottom: 5px;
-            border-radius: 4px;
-            transition: 0.3s;
-        }
-        .sidebar a:hover {
-            background-color: #495057;
-            color: white;
-        }
-        .sidebar a.active {
-            background-color: #007bff;
-            color: white;
-        }
-
-        /* Main Content Styling */
-        .main-content {
-            flex-grow: 1;
-            padding: 30px;
-            overflow-y: auto;
-        }
-        .header {
+        /* Navbar */
+        .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
+            padding: 10px 20px;
+            background: var(--card-bg);
+            border-bottom: 2px solid var(--neon-blue);
+            box-shadow: 0 0 15px rgba(51, 154, 240, 0.2);
         }
+        .nav-logo { height: 40px; border-radius: 5px; margin-right: 10px; }
+        .brand-name { font-weight: bold; color: var(--neon-blue); font-size: 1.2rem; }
+        .nav-links { list-style: none; display: flex; gap: 15px; margin: 0; padding: 0; }
+        .nav-links a { color: var(--text-main); text-decoration: none; font-size: 0.9rem; }
+        .search-wrapper input { background: #000; border: 1px solid var(--neon-blue); color: white; padding: 5px; border-radius: 4px; }
 
-        /* Table Styling */
-        .table-container {
-            background: white;
+        /* Layout */
+        .main-body { display: flex; flex: 1; overflow: hidden;  color: #ff5f5f;}
+
+        /* Sidebar */
+        .sidebar {
+            width: 220px;
+            background: var(--card-bg);
+            border-right: 1px solid #30363d;
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-        table th, table td {
-            text-align: left;
-            padding: 12px 15px;
-            border-bottom: 1px solid #eee;
-        }
-        table th {
-            background-color: #f8f9fa;
-            color: #333;
-        }
-        tr:hover {
-            background-color: #f1f1f1;
-        }
+        .sidebar h2 { font-size: 1.1rem; color: var(--neon-blue); }
+        .sidebar a { color: var(--text-main); text-decoration: none; padding: 10px; border-radius: 8px; }
+        .sidebar a.active { border: 1.5px solid var(--neon-blue); background: rgba(51, 154, 240, 0.1); }
+        .btn-danger { background: transparent; border: 1px solid var(--neon-red); color: var(--neon-red); cursor: pointer; padding: 8px; border-radius: 5px; margin-top: auto; }
 
-        /* Status Badge */
-        .status {
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 0.8rem;
-            font-weight: bold;
+        /* Main Content */
+        .main-content { flex: 1; padding: 25px; overflow-y: auto; }
+        .header h1 { margin: 0; text-transform: uppercase; letter-spacing: 2px; }
+
+        /* Stats Grid (The Red Glow Section) */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin: 20px 0;
         }
-        .active-status { background: #d4edda; color: #155724; }
-        .pending-status { background: #fff3cd; color: #856404; }
+        .stat-card {
+            background: repeating-linear-gradient(45deg, rgba(0,0,0,0.1), rgba(0,0,0,0.1) 2px, transparent 2px, transparent 4px), var(--card-bg);
+            border: 1.5px solid var(--neon-red);
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(255, 95, 95, 0.1);
+        }
+        .stat-card span { display: block; font-size: 1.5rem; font-weight: bold; margin-top: 5px; }
+
+        /* Detailed Panel (The Green Glow Section) */
+        .detailed-panel {
+            background: var(--card-bg);
+            border: 1.5px solid var(--neon-green);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(81, 207, 102, 0.1);
+        }
+        .panel-tabs .tab { background: none; border: 1px solid var(--neon-blue); color: var(--neon-blue); padding: 5px 15px; border-radius: 5px; cursor: pointer; margin-right: 5px; }
+        .panel-tabs .tab.active { background: var(--neon-blue); color: white; }
+
+        /* Table */
+        .user-data-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        .user-data-table th { color: var(--neon-blue); text-align: left; padding: 10px; border-bottom: 1px solid #30363d; }
+        .user-data-table td { padding: 10px; border-bottom: 1px solid #21262d; font-size: 0.85rem; }
+        .status.active { color: var(--neon-green); }
+        .status.inactive { color: var(--neon-red); }
+
+        /* Summary Panel */
+        .summary-panel {
+            margin-top: 20px;
+            padding: 15px;
+            border-top: 1px solid #30363d;
+            color: #8b949e;
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 <body>
@@ -101,6 +113,8 @@
         <div class="logo-container">
     <img src="logo/gloryday.jpg" alt="App Logo" class="nav-logo">
     <span class="brand-name">Davies' app</span>
+    <button class="menu-toggle" aria-label="Toggle Menu">☰</button>
+    <span class="menu-toggle">menu</span>
   </div>
   <div class="nav-group">
     <ul class="nav-links">
@@ -125,14 +139,27 @@
     <button id="deleteBtn" class="btn-danger">Delete Account</button>
   </div>
 </div>
-    <div class="main-content">
-        <div class="header">
-            <h1>auth</h1>
-            <p>Welcome back, <strong>Admin</strong></p>
-        </div>
+   <div class="main-content">
+  <div class="header">
+    <h1>auth</h1>
+    <p>Welcome back, <strong>Admin</strong></p>
+  </div>
 
-        <div class="table-container">
-            <h3>Recent Registrations</h3>
+  <div class="stats-grid">
+    <div class="stat-card">Total Users <br> <span>1,240</span></div>
+    <div class="stat-card">Active Now <br> <span>85</span></div>
+    <div class="stat-card">Pending <br> <span>12</span></div>
+    <div class="stat-card">Reports <br> <span>5</span></div>
+  </div>
+
+  <div class="table-container detailed-panel">
+    <div class="panel-tabs">
+      <button class="tab active">Overview</button>
+      <button class="tab">Export</button>
+    </div>
+    
+    <h3>Recent Registrations</h3>
+    <div class="scrollable-table"></div>
             <table class="user-data-table">
     <thead>
         <tr>
@@ -160,5 +187,11 @@
         </div>
     </div></div>
 
+  <div class="summary-panel">
+    <h3>System Logs / Quick Notes</h3>
+    <p>All systems operational. Last backup: 2 hours ago.</p>
+  </div>
+</div>
+</div>
 </body>
 </html>
