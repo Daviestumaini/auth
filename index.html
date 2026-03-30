@@ -5,25 +5,73 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Account Registration</title>
     <style>
-    /* --- SHARED LAYOUT & NAVBAR --- */
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background-color: #f4f7f6;
-        display: flex;
-        flex-direction: column;
-        height: 100vh;
-        overflow: hidden;
-    }
-    .navbar {
-        display: flex; justify-content: space-between; align-items: center;
-        background-color: #1a1a1a; color: white; padding: 0 25px; height: 70px; flex-shrink: 0;
-    }
-    .nav-left, .nav-center, .nav-right { flex: 1; display: flex; align-items: center; }
-    .nav-center { justify-content: center; }
-    .nav-right { justify-content: flex-end; }
-    .nav-logo { height: 45px; margin-right: 10px; border-radius: 4px; }
+     :root {
+            --bg-dark: #0d1117;
+            --card-bg: #161b22;
+            --neon-blue: #339af0;
+            --neon-red: #ff5f5f;
+            --neon-green: #51cf66;
+            --text-main: #e6edf3;
+        }
 
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* 2. NAVBAR (With Row Fix & High Visibility Logo) */
+        .navbar {
+            display: flex;
+            justify-content: space-between !important;
+            align-items: center;
+            padding: 10px 20px;
+            background: var(--card-bg);
+            border-bottom: 2px solid var(--neon-blue);
+            min-height: 70px;
+        }
+
+        .logo-container { display: flex; align-items: center; gap: 12px; }
+
+        .logo-pedestal {
+            width: 42px; height: 42px;
+            display: flex; align-items: center; justify-content: center;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            border: 1px solid rgba(51, 154, 240, 0.3);
+        }
+
+        .nav-logo {
+            height: 30px;
+            filter: invert(1) drop-shadow(0 0 8px var(--neon-blue));
+        }
+
+        .brand-text { display: flex; flex-direction: column; line-height: 1.1; }
+        .brand-main { color: var(--neon-blue); font-weight: 800; font-size: 1.2rem; text-transform: uppercase; }
+        .brand-sub { color: #fff; font-size: 0.75rem; opacity: 0.7; }
+
+ .nav-links {
+            flex: 2;
+            display: flex !important;
+            list-style: none !important;
+            gap: 25px;
+            justify-content: center !important;
+            align-items: center !important;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
     /* SEARCH BAR (Shrunk button fix) */
     .search-wrapper {
         display: flex; align-items: center; background: #333;
@@ -69,8 +117,10 @@
 <body>
    <nav class="navbar">
   <div class="nav-left">
-    <div class="logo-container">
-      <img src="logo/gloryday.jpg" alt="App Logo" class="nav-logo">
+    <div class="logo-pedestal">
+      <img src="https://cdn-icons-png.flaticon.com/512/9431/9431215.png" 
+                 alt="Tech Icon" 
+                 class="nav-logo">
       <span class="brand-name">Davies' app</span>
     </div>
   </div>

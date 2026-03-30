@@ -31,7 +31,7 @@
         /* 2. NAVBAR (With Row Fix & High Visibility Logo) */
         .navbar {
             display: flex;
-            justify-content: space-between;
+            justify-content: space-between !important;
             align-items: center;
             padding: 10px 20px;
             background: var(--card-bg);
@@ -59,9 +59,12 @@
         .brand-sub { color: #fff; font-size: 0.75rem; opacity: 0.7; }
 
         .nav-links {
+            flex: 2;
             display: flex !important;
             list-style: none !important;
             gap: 25px;
+            justify-content: center !important;
+            align-items: center !important;
         }
 
         .nav-links a {
@@ -71,7 +74,12 @@
             text-transform: uppercase;
             letter-spacing: 1px;
         }
-
+ .search-wrapper {
+        display: flex; align-items: center; background: #333;
+        border: 1px solid #4a90e2; border-radius: 20px; padding: 5px 10px; min-width: 180px;
+    }
+    .search-wrapper input { background: transparent; border: none; color: white; outline: none; width: 100%; font-size: 14px; }
+    .search-btn { background: none; border: none; cursor: pointer; font-size: 13px; padding-left: 5px; opacity: 0.8; }
         /* 3. MAIN LAYOUT */
         .main-body { display: flex; flex: 1; overflow: hidden; }
 
@@ -107,6 +115,8 @@
         }
 
         .stat-card {
+            width: 60%;
+            height: 50%;
             background: var(--card-bg);
             border: 1.5px solid var(--neon-red);
             padding: 20px;
@@ -200,10 +210,15 @@
         </div>
 
         <div class="stats-grid">
-            <div class="stat-card">Total Users <span>1,240</span></div>
-            <div class="stat-card">Active Now <span>85</span></div>
-            <div class="stat-card">Pending <span>12</span></div>
-            <div class="stat-card">Reports <span>5</span></div>
+            <div class="stat-card">Total Users 
+                <span>
+                1,240</span></div>
+            <div class="stat-card">Active Now <span>
+                85</span></div>
+            <div class="stat-card">Pending <span>
+                12</span></div>
+            <div class="stat-card">Reports <span>
+                5</span></div>
         </div>
 
         <div class="detailed-panel">
