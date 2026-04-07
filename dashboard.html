@@ -160,6 +160,136 @@
 
         .status-active { color: var(--neon-green); font-weight: bold; }
         .status-inactive { color: var(--neon-red); opacity: 0.8; }
+        @media screen and (min-width: 1025px) {
+    .sidebar {
+        width: 260px; /* Wider sidebar for big screens */
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(4, 1fr); /* All four cards in one row */
+        flex-direction: row;
+    }
+
+    .main-content {
+        padding: 40px; /* More breathing room on large screens */
+    }
+}
+/* Tablet Layout Logic */
+@media (min-width: 768px) {
+  .main-content {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    padding: 25px;
+    background-color: #121212; /* Dark background like wireframe */
+  }
+
+  /* 2x2 Grid for Top Cards */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .stat-card {
+    height: 100px;
+    background: #1e1e1e;
+    border: 1px solid #ff4d4d; /* Red border from wireframe */
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+  }
+
+  /* Detailed Table Panel (Green Section) */
+  .detailed-panel {
+    flex-direction: column;
+    border: 2px solid #4ade80; /* Green border */
+    box-sizing: border-box;
+    padding: 10px;
+    background: #1a1a1a;
+    height: auto;
+    min-height: min-content;
+    width: 100%;
+  }
+
+  .panel-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+
+  .tab, .panel-footer-bar {
+    border: 1px solid #3b82f6; /* Blue border from wireframe */
+    padding: 8px 15px;
+    box-sizing: border-box;
+    background: transparent;
+    color: #3b82f6;
+  }
+  .user-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: transparent; /* Makes the table match the black box */
+  color: white; /* Makes text readable on dark background */
+}
+
+/* Update your table rows to be legible */
+.user-data-table tr {
+  border-bottom: 1px solid #333;
+}
+
+  /* Bottom Panel (Green Section) */
+  /* This targets specifically the elements inside that panel */
+.summary-panel h3 {
+  margin-top: 0;
+  margin-bottom: 5px; /* Small gap between title and text */
+  font-size: 1.1rem;   /* Optional: shrink the title slightly */
+}
+
+.summary-panel p {
+  margin-bottom: 0;   /* Removes the extra space at the bottom */
+}
+}
+
+/* Scrollable table fix for smaller tablets */
+.scrollable-table {
+  overflow-x: auto;
+  margin-top: 10px;
+  background: transparent;
+}/* The container for Sidebar + Content */
+.main-body {
+  display: flex !important;
+  justify-content: center;
+  flex-direction: row !important;
+  flex-grow: 1 !important; /* Takes up all remaining vertical space */
+  overflow: hidden;
+  height: calc(100vh - 60px);
+  width: 100%;
+  padding: 20px;
+}
+/* The Left Sidebar */
+.sidebar {
+  width: 250px !important;
+  height: 90vh;
+  background: #343a40;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  flex-shrink: 0 !important;
+  gap: 10px;
+  min-height: 100%;
+}
+@media screen and (max-width: 300px) {
+    .sidebar {
+        width: 100%; 
+        height: auto;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;    
+    }
+}
         </style>
 </head>
 <body>
