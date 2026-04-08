@@ -6,322 +6,338 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Welcome Back</title>
    <style>
-    /* 1. Base Setup */
+    /* 1. Base Setup & Root Variables */
     :root {
-            --bg-dark: #0d1117;
-            --card-bg: #161b22;
-            --neon-blue: #339af0;
-            --neon-red: #ff5f5f;
-            --neon-green: #51cf66;
-            --text-main: #e6edf3;
-        }
+        --bg-dark: #0d1117;
+        --card-bg: #161b22;
+        --neon-blue: #339af0;
+        --text-main: #e6edf3;
+        --nav-height: 70px;
+    }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            font-family: 'Segoe UI', sans-serif;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            overflow: hidden;
-        }
+    body {
+        background-color: var(--bg-dark);
+        color: var(--text-main);
+        font-family: 'Segoe UI', sans-serif;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        overflow-x: hidden;
+    }
 
-        /* 2. NAVBAR (With Row Fix & High Visibility Logo) */
-        .navbar {
-            display: flex;
-            justify-content: space-between !important;
-            align-items: center;
-            padding: 10px 20px;
-            background: var(--card-bg);
-            border-bottom: 2px solid var(--neon-blue);
-            min-height: 70px;
-        }
+    /* 2. NAVBAR REFACTORED */
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 30px;
+        background: var(--card-bg);
+        border-bottom: 2px solid var(--neon-blue);
+        height: var(--nav-height);
+        position: relative; /* REQUIRED for absolute centering of links */
+        z-index: 1001;
+    }
 
-        .logo-container { display: flex; align-items: center; gap: 12px; }
+    .logo-container {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        z-index: 10;
+    }
 
-        .logo-pedestal {
-            width: 42px; height: 42px;
-            display: flex; align-items: center; justify-content: center;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            border: 1px solid rgba(51, 154, 240, 0.3);
-        }
-
-        .nav-logo {
-            height: 30px;
-            filter: invert(1) drop-shadow(0 0 8px var(--neon-blue));
-        }
-
-        .brand-text { display: flex; flex-direction: column; line-height: 1.1; }
-        .brand-main { color: var(--neon-blue); font-weight: 800; font-size: 1.2rem; text-transform: uppercase; }
-        .brand-sub { color: #fff; font-size: 0.75rem; opacity: 0.7; }
-
-
+    /* CENTERED NAV LINKS */
     .nav-links {
-            flex: 2;
-            display: flex !important;
-            justify-content: center !important;
-            align-items: center !important;
-            list-style: none !important;
-            gap: 25px;
-        }
+        display: flex;
+        list-style: none;
+        gap: 40px;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%); /* The secret sauce for perfect centering */
+    }
 
     .nav-links a {
         text-decoration: none;
-        color: #444;
-        font-weight: 500;
-        font-size: 15px;
+        color: var(--text-main);
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        letter-spacing: 1px;
+        transition: 0.3s;
     }
 
-    /* Search Box (Dark & Rounded) */
-    .search-box {
-        display: flex;
-        align-items: center;
-        background: #333;
-        border-radius: 25px;
-        padding: 6px 15px;
-        width: 220px;
+    .nav-links a:hover {
+        color: var(--neon-blue);
+        text-shadow: 0 0 8px var(--neon-blue);
     }
+   .search-box {
+    display: flex;          /* 1. Use flex to put them side-by-side */
+    align-items: center;    /* 2. Vertically center the text and icon */
+    width: 250px;           /* 3. Give the box a set width */
+    background: #161b22;
+    border: 1.5px solid #339af0;
+    border-radius: 20px;
+    padding: 0 15px;
+}
 
-    .search-box input {
-        background: transparent;
+.search-box input {
+    flex: 1;                /* 4. THIS IS THE KEY: It forces the input to fill all empty space */
+    background: transparent;
+    border: none;
+    min-width: 150px;           /* 5. Prevent it from shrinking too much */
+    outline: none;
+    color: white;
+    height: 40px;
+}
+
+
+.search-box button {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding: 0;
+    font-size: 1.1rem;      /* Size of the emoji 🔍 */
+}
+
+    /* HAMBURGER - Hidden on Desktop */
+    .hamburger {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+        background: none;
         border: none;
-        color: white;
-        outline: none;
-        width: 100%;
-        font-size: 14px;
+        z-index: 1100;
     }
 
-    /* 3. The Vertical Stacker */
+    .hamburger span {
+        width: 25px;
+        height: 3px;
+        background: var(--neon-blue);
+        border-radius: 2px;
+    }
+
+    /* 3. MAIN CONTENT AREA */
     .main-wrapper {
         display: flex;
-        flex-direction: column; /* Forces vertical stacking */
-        justify-content: center;
+        flex-direction: column;
         align-items: center;
         flex-grow: 1;
-        gap: 25px; /* Gap between items and the login box */
-        padding: 20px;
+        padding: 40px 20px;
+        overflow-y: auto;
+        gap: 40px;
     }
 
-    /* 4. Blue Items (1, 2, 3, 4) */
-    .flex-container {
-        display: flex;
-        gap: 12px;
-    }
+    /* The Blue Items (1, 2, 3, 4) */
+    /* 1. THE CARDS CONTAINER */
+.stats-grid {
+    display: grid;
+    gap: 20px;
+    width: 100%;
+    max-width: 1100px; /* Keeps them from spreading too far on huge monitors */
+    margin: 0 auto 30px auto; /* Centers the grid itself */
+    padding: 20px;
+}
 
-    .item {
-        width: 40px;
-        height: 40px;
-        background-color: #2575fc;
-        color: white;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-weight: bold;
-        border-radius: 6px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    }
+/* 2. THE CARD STYLE */
+.stat-card {
+    background: var(--card-bg);
+    border: 1.5px solid var(--neon-red); /* Using your neon red theme */
+    padding: 25px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
 
-    /* 5. Login Box */
-    .login-container {
-        background: white;
-        padding: 40px;
-        border-radius: 12px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-        width: 100%;
-        max-width: 400px;
-    }
+.stat-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--neon-blue);
+}
 
-    h2 {
-        font-size: 1.8rem;
-        margin-bottom: 25px;
-        color: #222;
-    }
+/* 3. RESPONSIVE GRID LOGIC */
 
-    .form-group {
-        margin-bottom: 20px;
-        text-align: left;
+/* MOBILE VIEW (Default) */
+@media (max-width: 767px) {
+    .stats-grid {
+        grid-template-columns: 1fr; /* 1 column stack */
     }
+}
 
-    label {
-        display: block;
-        margin-bottom: 8px;
-        font-weight: bold;
-        color: #444;
-        font-size: 14px;
+/* TABLET VIEW (768px to 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2x2 Grid */
     }
+}
 
-    input[type="email"], 
-    input[type="password"] {
+/* DESKTOP VIEW (1024px and up) */
+@media (min-width: 1024px) {
+    .stats-grid {
+        grid-template-columns: repeat(4, 1fr); /* 1 row of 4 */
+    }
+    
+    /* Re-enabling the link and search logic from before */
+    .nav-links { display: flex !important; }
+    .hamburger { display: none !important; }
+}
+
+    /* LOGIN CONTAINER - Improved visibility from your screenshot */
+   .login-container {
+    width: 100%;
+    max-width: 400px;      /* Keeps the form from getting too wide */
+    background: #161b22;
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid #30363d;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    
+    /* Optional: extra insurance for centering */
+    margin: 0 auto; 
+}
+
+    .login-container h2 { margin-bottom: 20px; color: var(--neon-blue); }
+
+    .form-group { margin-bottom: 15px; }
+
+    input {
         width: 100%;
         padding: 12px;
-        border: 1px solid #ddd;
+        background: #0d1117;
+        border: 1px solid #30363d;
         border-radius: 6px;
-        font-size: 14px;
+        color: white;
+        margin-top: 5px;
     }
 
-    /* Button Styling */
-    button[type="submit"] {
+    button {
         width: 100%;
-        padding: 14px;
-        background-color: #007bff;
-        color: white;
+        padding: 12px;
+        background: var(--neon-blue);
         border: none;
-        border-radius: 6px;
+        color: white;
         font-weight: bold;
-        font-size: 16px;
+        border-radius: 6px;
         cursor: pointer;
         margin-top: 10px;
     }
-
-    button[type="submit"]:hover {
-        background-color: #0056b3;
-    }
-
-    .footer-links {
-        margin-top: 25px;
-        text-align: center;
-        font-size: 14px;
-        color: #666;
-    }
-
-    .footer-links a {
-        color: #007bff;
-        text-decoration: none;
-        font-weight: 600;
-    }
-    @media screen and (min-width: 1025px) {
-    .sidebar {
-        width: 260px; /* Wider sidebar for big screens */
-    }
-
-    .stats-grid {
-        grid-template-columns: repeat(4, 1fr); /* All four cards in one row */
-        flex-direction: row;
-    }
-
-    .main-content {
-        padding: 40px; /* More breathing room on large screens */
-    }
-}
-/* Tablet Layout Logic */
-@media (min-width: 768px) {
-  .main-content {
+/* 1. DESKTOP LINKS (Centered) */
+.nav-links {
     display: flex;
+    list-style: none;
+    gap: 30px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none; /* Let clicks pass through to the search bar */
+    z-index: 10;
+}
+
+.nav-links a {
+    pointer-events: auto; /* Make the actual text clickable */
+    text-decoration: none;
+    color: var(--text-main);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+}
+
+/* 2. THE HAMBURGER (Menu Icon) */
+/* 1. Base Hamburger Style (Hidden by default) */
+.hamburger {
+    display: none;
     flex-direction: column;
-    gap: 25px;
-    padding: 25px;
-    background-color: #121212; /* Dark background like wireframe */
-  }
-
-  /* 2x2 Grid for Top Cards */
-  .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-  }
-
-  .stat-card {
-    height: 100px;
-    background: #1e1e1e;
-    border: 1px solid #ff4d4d; /* Red border from wireframe */
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: white;
-  }
-
-  /* Detailed Table Panel (Green Section) */
-  .detailed-panel {
-    flex-direction: column;
-    border: 2px solid #4ade80; /* Green border */
-    box-sizing: border-box;
-    padding: 10px;
-    background: #1a1a1a;
-    height: auto;
-    min-height: min-content;
-    width: 100%;
-  }
-
-  .panel-tabs {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 15px;
-  }
-
-  .tab, .panel-footer-bar {
-    border: 1px solid #3b82f6; /* Blue border from wireframe */
-    padding: 8px 15px;
-    box-sizing: border-box;
-    background: transparent;
-    color: #3b82f6;
-  }
-  .user-data-table {
-  width: 100%;
-  border-collapse: collapse;
-  background-color: transparent; /* Makes the table match the black box */
-  color: white; /* Makes text readable on dark background */
+    gap: 5px;
+    cursor: pointer;
 }
 
-/* Update your table rows to be legible */
-.user-data-table tr {
-  border-bottom: 1px solid #333;
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background: var(--neon-blue);
+    border-radius: 2px;
 }
 
-  /* Bottom Panel (Green Section) */
-  /* This targets specifically the elements inside that panel */
-.summary-panel h3 {
-  margin-top: 0;
-  margin-bottom: 5px; /* Small gap between title and text */
-  font-size: 1.1rem;   /* Optional: shrink the title slightly */
-}
+/* 2. Responsive Swap (Below 1024px) */
+@media (max-width: 1023px) {
+    /* Hide the center links and the search bar */
+    .nav-links, 
+    .nav-right .search-box {
+        display: none !important;
+    }
 
-.summary-panel p {
-  margin-bottom: 0;   /* Removes the extra space at the bottom */
-}
-}
+    /* Reveal the Hamburger icon in the nav-right slot */
+    .hamburger {
+        display: flex !important;
+    }
 
-/* Scrollable table fix for smaller tablets */
-.scrollable-table {
-  overflow-x: auto;
-  margin-top: 10px;
-  background: transparent;
-}/* The container for Sidebar + Content */
-.main-body {
-  display: flex !important;
-  justify-content: center;
-  flex-direction: row !important;
-  flex-grow: 1 !important; /* Takes up all remaining vertical space */
-  overflow: hidden;
-  height: calc(100vh - 60px);
-  width: 100%;
-  padding: 20px;
-}
-/* The Left Sidebar */
-.sidebar {
-  width: 250px !important;
-  height: 90vh;
-  background: #343a40;
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-  flex-shrink: 0 !important;
-  gap: 10px;
-  min-height: 100%;
-}
-@media screen and (max-width: 300px) {
-    .sidebar {
-        width: 100%; 
-        height: auto;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;    
+    /* Keep the nav-right container active to align the hamburger */
+    .nav-right {
+        display: flex;
+        align-items: center;
     }
 }
+
+/* 3. RESPONSIVE LOGIC (The "Disappearing" Act) */
+
+/* If the screen is SMALLER than 1024px (Tablet/Mobile) */
+@media (max-width: 1023px) {
+    .nav-links {
+        display: none !important; /* LINKS DISAPPEAR */
+    }
+
+    .hamburger {
+        display: flex; /* MENU ICON APPEARS */
+    }
+    
+    .search-box {
+        width: 180px; /* Shrink search box slightly for smaller screens */
+    }
+}
+
+/* If the screen is LARGER than 1024px (Desktop) */
+@media (min-width: 1024px) {
+    .nav-links {
+        display: flex; /* LINKS SHOW UP */
+    }
+
+    .hamburger {
+        display: none; /* MENU ICON HIDDEN */
+    }
+}
+    /* 4. RESPONSIVE MEDIA QUERIES */
+
+    /* TABLET & MOBILE VIEW (Below 1024px) */
+    @media (max-width: 1023px) {
+        .nav-links {
+            display: none; /* Disappear centered links */
+        }
+
+        .hamburger {
+            display: flex; /* Show menu icon */
+        }
+
+        .navbar {
+            padding: 0 20px;
+        }
+    }
+
+    /* DESKTOP VIEW (1024px and up) */
+    @media (min-width: 1024px) {
+        .hamburger {
+            display: none; /* Ensure icon is hidden on desktop */
+        }
+        
+        .nav-links {
+            display: flex; /* Ensure links are visible */
+        }
+    }
 </style>
 </head>
 <body>
@@ -348,15 +364,30 @@
       <button style="background:none; border:none; cursor:pointer;">🔍</button>
     </div>
   </div>
+  <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
 </nav>
-<div class="main-wrapper">
-    <div class="flex-container">
-  <div class="item">1</div>
-  <div class="item">2</div>
-  <div class="item">3</div>
-  <div class="item">4</div>
+<div class="stats-grid">
+    <div class="stat-card">
+        <h4>Items</h4>
+        <span>1</span>
+    </div>
+    <div class="stat-card">
+        <h4>Items</h4>
+        <span>2</span>
+    </div>
+    <div class="stat-card">
+        <h4>Items</h4>
+        <span>3</span>
+    </div>
+    <div class="stat-card">
+        <h4>Items</h4>
+        <span>4</span>
+    </div>
 </div>
-
     <div class="login-container">
         <h2>Login</h2>        
         <form action="/login" method="POST">

@@ -6,14 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Dashboard</title>
     <style>
-        /* 1. THEME VARIABLES */
-        :root {
+    /* 1. RESET & VARIABLES */
+:root {
             --bg-dark: #0d1117;
             --card-bg: #161b22;
             --neon-blue: #339af0;
             --neon-red: #ff5f5f;
-            --neon-green: #51cf66;
             --text-main: #e6edf3;
+            --nav-height: 70px;
+            --sidebar-width: 260px;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -24,89 +25,109 @@
             font-family: 'Segoe UI', sans-serif;
             display: flex;
             flex-direction: column;
-            height: 100vh;
-            overflow: hidden;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        /* 2. NAVBAR (With Row Fix & High Visibility Logo) */
+        /* --- NAVIGATION --- */
         .navbar {
             display: flex;
-            justify-content: space-between !important;
+            justify-content: space-between;
             align-items: center;
-            padding: 10px 20px;
+            padding: 0 20px;
             background: var(--card-bg);
             border-bottom: 2px solid var(--neon-blue);
-            min-height: 70px;
+            height: var(--nav-height);
+            position: sticky;
+            top: 0;
+            z-index: 9999;
         }
 
-        .logo-container { display: flex; align-items: center; gap: 12px; }
-
-        .logo-pedestal {
-            width: 42px; height: 42px;
-            display: flex; align-items: center; justify-content: center;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            border: 1px solid rgba(51, 154, 240, 0.3);
-        }
-
-        .nav-logo {
-            height: 30px;
-            filter: invert(1) drop-shadow(0 0 8px var(--neon-blue));
-        }
-
-        .brand-text { display: flex; flex-direction: column; line-height: 1.1; }
-        .brand-main { color: var(--neon-blue); font-weight: 800; font-size: 1.2rem; text-transform: uppercase; }
-        .brand-sub { color: #fff; font-size: 0.75rem; opacity: 0.7; }
+        .logo-container { display: flex; align-items: center; gap: 10px; }
+        .nav-logo { height: 30px; filter: invert(1); }
+        .brand-text { font-weight: bold; color: var(--neon-blue); }
 
         .nav-links {
-            flex: 2;
-            display: flex !important;
-            list-style: none !important;
+            display: flex;
+            list-style: none;
             gap: 25px;
-            justify-content: center !important;
-            align-items: center !important;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
         }
 
         .nav-links a {
             color: var(--text-main);
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            font-weight: 600;
         }
- .search-wrapper {
-        display: flex; align-items: center; background: #333;
-        border: 1px solid #4a90e2; border-radius: 20px; padding: 5px 10px; min-width: 180px;
-    }
-    .search-wrapper input { background: transparent; border: none; color: white; outline: none; width: 100%; font-size: 14px; }
-    .search-btn { background: none; border: none; cursor: pointer; font-size: 13px; padding-left: 5px; opacity: 0.8; }
-        /* 3. MAIN LAYOUT */
-        .main-body { display: flex; flex: 1; overflow: hidden; }
+
+        /* SEARCH & HAMBURGER CONTAINER */
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .search-wrapper {
+            display: flex;
+            align-items: center;
+            background: #000;
+            border: 1px solid var(--neon-blue);
+            border-radius: 20px;
+            padding: 5px 12px;
+            width: 200px;
+        }
+
+        .search-wrapper input {
+            background: transparent;
+            border: none;
+            color: white;
+            outline: none;
+            width: 100%;
+            font-size: 0.8rem;
+        }
+
+        .search-btn { background: none; border: none; cursor: pointer; color: var(--neon-blue); }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--neon-blue);
+            border-radius: 2px;
+        }
+
+        /* --- BODY LAYOUT --- */
+        .main-body { display: flex; flex: 1; }
 
         .sidebar {
-            width: 240px;
+            width: var(--sidebar-width);
             background: var(--card-bg);
             border-right: 1px solid #30363d;
             padding: 20px;
-            display: flex; flex-direction: column; gap: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
 
-        .sidebar a {
-            color: var(--text-main);
-            text-decoration: none;
-            padding: 12px;
-            border-radius: 8px;
-        }
+        .sidebar h2 { font-size: 1.2rem; margin-bottom: 10px; color: var(--neon-blue); }
+        .sidebar a { color: var(--text-main); text-decoration: none; padding: 10px; border-radius: 5px; }
+        .sidebar a.active { background: rgba(51, 154, 240, 0.1); border-left: 3px solid var(--neon-blue); }
 
-        .sidebar a.active {
-            background: rgba(51, 154, 240, 0.1);
-            color: var(--neon-blue);
-            border: 1px solid var(--neon-blue);
-        }
+        .main-content { flex: 1; padding: 30px; }
 
-        .main-content { flex: 1; padding: 30px; overflow-y: auto; }
-
-        /* 4. TABLE & CARDS (The "Wireframe" Look) */
+        /* --- STATS GRID --- */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -115,182 +136,36 @@
         }
 
         .stat-card {
-            width: 60%;
-            height: 50%;
             background: var(--card-bg);
             border: 1.5px solid var(--neon-red);
             padding: 20px;
             border-radius: 12px;
             text-align: center;
-            box-shadow: 0 0 10px rgba(255, 95, 95, 0.1);
-            flex-direction: column;
         }
 
-        .stat-card h4 { font-size: 0.8rem; text-transform: uppercase; color: var(--neon-red); margin-bottom: 5px; }
-        .stat-card span { font-size: 1.8rem; font-weight: bold; color: #fff; }
+        .stat-card span { display: block; font-size: 1.5rem; font-weight: bold; margin-top: 10px; }
 
-        .detailed-panel {
-            background: var(--card-bg);
-            border: 1.5px solid var(--neon-green);
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 0 15px rgba(81, 207, 102, 0.1);
+        /* --- RESPONSIVE LOGIC --- */
+        @media (max-width: 1024px) {
+            .sidebar, .nav-links, .search-wrapper {
+                display: none !important;
+            }
+
+            .hamburger {
+                display: flex !important;
+            }
+
+            .nav-right { min-width: auto; }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
-        .user-data-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
+        @media (max-width: 600px) {
+            .stats-grid { grid-template-columns: 1fr; }
         }
-
-        .user-data-table th {
-            text-align: left;
-            padding: 12px;
-            color: var(--neon-blue);
-            border-bottom: 1.5px solid var(--neon-blue);
-            text-transform: uppercase;
-            font-size: 0.8rem;
-        }
-
-        .user-data-table td {
-            padding: 12px;
-            border-bottom: 1px solid #30363d;
-            font-size: 0.9rem;
-        }
-
-        .status-active { color: var(--neon-green); font-weight: bold; }
-        .status-inactive { color: var(--neon-red); opacity: 0.8; }
-        @media screen and (min-width: 1025px) {
-    .sidebar {
-        width: 260px; /* Wider sidebar for big screens */
-    }
-
-    .stats-grid {
-        grid-template-columns: repeat(4, 1fr); /* All four cards in one row */
-        flex-direction: row;
-    }
-
-    .main-content {
-        padding: 40px; /* More breathing room on large screens */
-    }
-}
-/* Tablet Layout Logic */
-@media (min-width: 768px) {
-  .main-content {
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-    padding: 25px;
-    background-color: #121212; /* Dark background like wireframe */
-  }
-
-  /* 2x2 Grid for Top Cards */
-  .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-  }
-
-  .stat-card {
-    height: 100px;
-    background: #1e1e1e;
-    border: 1px solid #ff4d4d; /* Red border from wireframe */
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: white;
-  }
-
-  /* Detailed Table Panel (Green Section) */
-  .detailed-panel {
-    flex-direction: column;
-    border: 2px solid #4ade80; /* Green border */
-    box-sizing: border-box;
-    padding: 10px;
-    background: #1a1a1a;
-    height: auto;
-    min-height: min-content;
-    width: 100%;
-  }
-
-  .panel-tabs {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 15px;
-  }
-
-  .tab, .panel-footer-bar {
-    border: 1px solid #3b82f6; /* Blue border from wireframe */
-    padding: 8px 15px;
-    box-sizing: border-box;
-    background: transparent;
-    color: #3b82f6;
-  }
-  .user-data-table {
-  width: 100%;
-  border-collapse: collapse;
-  background-color: transparent; /* Makes the table match the black box */
-  color: white; /* Makes text readable on dark background */
-}
-
-/* Update your table rows to be legible */
-.user-data-table tr {
-  border-bottom: 1px solid #333;
-}
-
-  /* Bottom Panel (Green Section) */
-  /* This targets specifically the elements inside that panel */
-.summary-panel h3 {
-  margin-top: 0;
-  margin-bottom: 5px; /* Small gap between title and text */
-  font-size: 1.1rem;   /* Optional: shrink the title slightly */
-}
-
-.summary-panel p {
-  margin-bottom: 0;   /* Removes the extra space at the bottom */
-}
-}
-
-/* Scrollable table fix for smaller tablets */
-.scrollable-table {
-  overflow-x: auto;
-  margin-top: 10px;
-  background: transparent;
-}/* The container for Sidebar + Content */
-.main-body {
-  display: flex !important;
-  justify-content: center;
-  flex-direction: row !important;
-  flex-grow: 1 !important; /* Takes up all remaining vertical space */
-  overflow: hidden;
-  height: calc(100vh - 60px);
-  width: 100%;
-  padding: 20px;
-}
-/* The Left Sidebar */
-.sidebar {
-  width: 250px !important;
-  height: 90vh;
-  background: #343a40;
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-  flex-shrink: 0 !important;
-  gap: 10px;
-  min-height: 100%;
-}
-@media screen and (max-width: 300px) {
-    .sidebar {
-        width: 100%; 
-        height: auto;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;    
-    }
-}
-        </style>
+</style>
 </head>
 <body>
 
@@ -306,11 +181,6 @@
             <span class="brand-main">Davies'</span>
             <span class="brand-sub">app</span>
         </div>
-
-        <button class="menu-toggle" aria-label="Toggle Menu">
-            <span class="menu-icon">☰</span>
-            <span class="menu-text">menu</span>
-        </button>
     </div>
 
     <div class="nav-group">
@@ -324,6 +194,11 @@
         <input type="text" placeholder="Search..." aria-label="Search">
         <button class="search-btn">🔍</button>
     </div>
+    <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
 </nav>
 <div class="main-body">
     <aside class="sidebar">
